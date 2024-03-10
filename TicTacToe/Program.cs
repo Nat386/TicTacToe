@@ -40,58 +40,75 @@
                 {
                     // The move was invalid, so ask again
                     // Ход был недействителен, поэтому спросите еще раз
-                    
+                    Console.WriteLine("Invalid move. Please try again.");
                 }
             }
 
             // Draw the board one last time and print the winner
             // Нарисуйте доску еще раз и напечатайте победителя
             DrawBoard();
-
+            if (gameWon)
+            {
+                Console.WriteLine($"Player {currentPlayer} wins!");
+            }
             // Print the winner
             // Напечатать победителя
         }
 
         static void DrawBoard()
         {
-            // Clear the console and draw the board
-            // Очистить консоль и нарисовать доску
-            
+            Console.Clear();
+            Console.WriteLine($"{board[0]} | {board[1]} | {board[2]}");
+            Console.WriteLine($"__|___|___");
+            Console.WriteLine($"{board[3]} | {board[4]} | {board[5]}");
+            Console.WriteLine($"__|___|___");
+            Console.WriteLine($"{board[6]} | {board[7]} | {board[8]}");
+
         }
 
         static int GetPosition()
         {
-            // Ask the current player for a position
-            // Спросить текущего игрока о позиции
-
+            Console.WriteLine($"Player {currentPlayer} choose a position (1-9): ");
+            position = int.Parse(Console.ReadLine()) - 1;
+            return position;
         }
 
         static bool IsValidMove()
         {
             // Check if the position is valid
             // Проверить, действительна ли позиция
-            
+            return position >=0 && position <= 9 && board[position] != 'X' && board[position] != 'O';
         }
 
         static void MakeMove()
         {
             // Make the move
             // Сделать ход
-            
+            board[position] = currentPlayer;
         }
 
         static bool CheckWin()
         {
             // Check if the current player has won
             // Проверить, выиграл ли текущий игрок
-
+            return
+                (board[0] == currentPlayer && board[1] == currentPlayer && board[2] == currentPlayer ||
+                 board[3] == currentPlayer && board[4] == currentPlayer && board[5] == currentPlayer ||
+                 board[6] == currentPlayer && board[7] == currentPlayer && board[8] == currentPlayer ||
+                 board[0] == currentPlayer && board[3] == currentPlayer && board[6] == currentPlayer ||
+                 board[1] == currentPlayer && board[4] == currentPlayer && board[7] == currentPlayer ||
+                 board[2] == currentPlayer && board[5] == currentPlayer && board[8] == currentPlayer ||
+                 board[0] == currentPlayer && board[4] == currentPlayer && board[8] == currentPlayer ||
+                 board[2] == currentPlayer && board[4] == currentPlayer && board[6] == currentPlayer);
         }
 
         static void SwitchPlayer()
         {
             // Switch the current player
             // Переключить текущего игрока
-            
+           currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+             
+        }
+
         }
     }
-}
